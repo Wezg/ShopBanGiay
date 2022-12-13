@@ -26,6 +26,11 @@ public class NguoiDungServiceImpl implements NguoiDungService {
     }
 
     @Override
+    public NguoiDung getNDByEmail(String email) {
+        return nguoiDungRepository.getNDByEmail(email);
+    }
+
+    @Override
     public List<NguoiDung> timKiem(String ten) {
         return nguoiDungRepository.timKiem(ten);
     }

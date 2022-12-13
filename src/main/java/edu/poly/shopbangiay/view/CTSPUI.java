@@ -9,6 +9,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import edu.poly.shopbangiay.helper.Auth;
 import edu.poly.shopbangiay.model.*;
 import edu.poly.shopbangiay.service.*;
 import edu.poly.shopbangiay.service.impl.*;
@@ -24,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -65,6 +65,30 @@ public class CTSPUI extends javax.swing.JPanel {
         loadCBX_MS(ctspService.listMS());
         loadCBX_NSX(ctspService.listNSX());
         loadCBX_SP(ctspService.listSP());
+
+//        phanQuyen();
+    }
+
+    public void phanQuyen() {
+        if (Auth.isManager()) {
+            btnGenQR.setVisible(true);
+            btnThem.setVisible(true);
+            btnSua.setVisible(true);
+            btnXoa.setVisible(true);
+            btnQL.setVisible(true);
+            btnXuatFile.setVisible(true);
+            btnNhapFile.setVisible(true);
+            btnThemSP.setVisible(true);
+        } else {
+            btnGenQR.setVisible(false);
+            btnThem.setVisible(false);
+            btnSua.setVisible(false);
+            btnXoa.setVisible(false);
+            btnQL.setVisible(false);
+            btnXuatFile.setVisible(false);
+            btnNhapFile.setVisible(false);
+            btnThemSP.setVisible(false);
+        }
     }
 
     public void loadData(List<ChiTietSanPham> list) {
@@ -446,7 +470,7 @@ public class CTSPUI extends javax.swing.JPanel {
                                         .addComponent(rdoOff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLabel1)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 28, Short.MAX_VALUE))
+                        .addGap(0, 74, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -569,7 +593,7 @@ public class CTSPUI extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1332, Short.MAX_VALUE)
+            .addGap(0, 1378, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -841,7 +865,7 @@ public class CTSPUI extends javax.swing.JPanel {
 
         FileOutputStream fos;
         try {
-            fos = new FileOutputStream("sanPham.xlsx");
+            fos = new FileOutputStream("Excel/CTSP.xlsx");
             workbook.write(fos);
             JOptionPane.showMessageDialog(this, "Ghi file thành công");
         } catch (FileNotFoundException e) {

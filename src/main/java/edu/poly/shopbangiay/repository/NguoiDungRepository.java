@@ -35,6 +35,16 @@ public class NguoiDungRepository {
         }
     }
 
+    public NguoiDung getNDByEmail(String email){
+        try{
+            Query query = session.createQuery("from NguoiDung where email =: email");
+            query.setParameter("email", email);
+            return (NguoiDung) query.getSingleResult();
+        }catch (Exception e){
+            return null;
+        }
+    }
+
     public NguoiDung getNDBySDT(String sdt){
         try{
             Query query = session.createQuery("from NguoiDung where sdt =: sdt");

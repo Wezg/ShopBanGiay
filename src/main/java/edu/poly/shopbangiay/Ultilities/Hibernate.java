@@ -22,7 +22,7 @@ public class Hibernate {
         properties.put(Environment.USER, "sa");
         properties.put(Environment.PASS, "18123");
         properties.put(Environment.SHOW_SQL, "true");
-        properties.put(Environment.HBM2DDL_AUTO, "update");
+//        properties.put(Environment.HBM2DDL_AUTO, "update");
         conf.setProperties(properties);
         conf.addAnnotatedClass(ChatLieu.class);
         conf.addAnnotatedClass(ChiTietHoaDon.class);

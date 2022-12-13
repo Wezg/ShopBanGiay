@@ -4,6 +4,7 @@
  */
 package edu.poly.shopbangiay.view;
 
+import edu.poly.shopbangiay.helper.Auth;
 import edu.poly.shopbangiay.model.KhachHang;
 import edu.poly.shopbangiay.raven.datechooser.DateChooser;
 import edu.poly.shopbangiay.service.KhachHangService;
@@ -40,6 +41,19 @@ public class KhachHangUI extends javax.swing.JPanel {
         groupGT();
         dateChooser.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
         dateChooser.setTextField(txtNgaySinh);
+        phanQuyen();
+    }
+
+    public void phanQuyen() {
+        if (Auth.isManager()) {
+            btnThem.setVisible(true);
+            btnSua.setVisible(true);
+            btnXoa.setVisible(true);
+        } else {
+            btnThem.setVisible(false);
+            btnSua.setVisible(false);
+            btnXoa.setVisible(false);
+        }
     }
 
     public void loadData(List<KhachHang> list) {

@@ -4,6 +4,7 @@
  */
 package edu.poly.shopbangiay.view;
 
+import edu.poly.shopbangiay.helper.Auth;
 import edu.poly.shopbangiay.model.KhachHang;
 import edu.poly.shopbangiay.model.Voucher;
 import edu.poly.shopbangiay.raven.datechooser.DateChooser;
@@ -47,7 +48,19 @@ public class VoucherUI extends javax.swing.JPanel {
         dateChooser1.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
         dateChooser.setTextField(txtTuNgay);
         dateChooser1.setTextField(txtDenNgay);
+        phanQuyen();
+    }
 
+    public void phanQuyen() {
+        if (Auth.isManager()) {
+            btnThem.setVisible(true);
+            btnSua.setVisible(true);
+            btnXoa.setVisible(true);
+        } else {
+            btnThem.setVisible(false);
+            btnSua.setVisible(false);
+            btnXoa.setVisible(false);
+        }
     }
 
     public void loadData(List<Voucher> list) {

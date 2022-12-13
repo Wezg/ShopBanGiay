@@ -106,6 +106,7 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
         loadCBX_TT();
 
         initWebcam(Cam);
+
         if (Auth.isLogin()){
             lbName.setText(Auth.user.getTen());
             lbCV.setText(Auth.user.getChucVu() ? "Quản lý" : "Nhân viên");
@@ -1382,8 +1383,6 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
-//        jPanel17.setOpaque(false);
-//        jPanel17.setBorder(new EmptyBorder(10, 20, 10, 10));
         jPanel17.setLayout(new BorderLayout());
         jPanel17.removeAll();
         jPanel17.add(new HoaDonUI());
@@ -1405,6 +1404,7 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
     private void jPanel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseClicked
         // TODO add your handling code here:
+        webcam.close();
         dispose();
         new Login().setVisible(true);
 
@@ -1760,6 +1760,10 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
         setVisible(true);
         executor.execute(this);
+    }
+
+    public void closeWebCam(JPanel panelShow){
+        setVisible(false);
     }
 
     @Override
