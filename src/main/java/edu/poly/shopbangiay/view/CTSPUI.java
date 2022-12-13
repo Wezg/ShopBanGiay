@@ -255,8 +255,8 @@ public class CTSPUI extends javax.swing.JPanel {
         txtSoLuong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtSoLuong.setLabelText("Số lượng");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Thông tin sản phẩm");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("CHI TIẾT SẢN PHẨM");
 
         txtGiaNhap.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtGiaNhap.setLabelText("Giá vốn");
@@ -293,6 +293,7 @@ public class CTSPUI extends javax.swing.JPanel {
         txtMota.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         textAreaScroll1.setViewportView(txtMota);
 
+        rdoOn.setBackground(new java.awt.Color(255, 204, 204));
         rdoOn.setText("Đang kinh doanh");
         rdoOn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
@@ -300,6 +301,7 @@ public class CTSPUI extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(153, 153, 153));
         jLabel2.setText("Trạng thái:");
 
+        rdoOff.setBackground(new java.awt.Color(255, 204, 204));
         rdoOff.setText("Ngừng kinh doanh");
         rdoOff.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
@@ -527,7 +529,7 @@ public class CTSPUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblCTSP.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        tblCTSP.setSelectionBackground(new java.awt.Color(204, 255, 204));
         tblCTSP.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblCTSPMouseClicked(evt);
@@ -545,7 +547,7 @@ public class CTSPUI extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tableScrollButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+            .addComponent(tableScrollButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -995,7 +997,7 @@ public class CTSPUI extends javax.swing.JPanel {
 
     private void cbxSPItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxSPItemStateChanged
         // TODO add your handling code here:
-        if (cbxSP.getSelectedIndex() == 0){
+        if (cbxSP.getSelectedIndex() <= 0){
             txtTen.setText("");
         }else {
             SanPham sanPham = sanPhamService.getList().get(cbxSP.getSelectedIndex() - 1);
