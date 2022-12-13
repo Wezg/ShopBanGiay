@@ -8,6 +8,7 @@ import java.util.List;
 public interface HoaDonService {
     List<HoaDon> getList();
     Double doanhThuNgay(Date date);
+    List<HoaDon> locDate(Date date, Date toDate);
     List<HoaDon> locTT(Integer tt);
     HoaDon getHDByMa(String ma);
     List<HoaDon> timKiem(String ten);

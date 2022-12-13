@@ -46,7 +46,7 @@ public class NhanVienUI extends javax.swing.JPanel {
         TableCustom.apply(jScrollPane1, TableCustom.TableType.DEFAULT);
         loadData(nguoiDungService.getList());
         groupGT();
-        loadCBX_CV(nguoiDungService.listCV());
+        groupCV();
         
         dateChooser.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
         dateChooser.setTextField(txtNgaySinh);
@@ -66,7 +66,7 @@ public class NhanVienUI extends javax.swing.JPanel {
                     nguoiDung.getGioiTinh() ? "Nam" : "Nữ",
                     nguoiDung.getSdt(),
                     nguoiDung.getEmail(),
-                    nguoiDung.getChucVu().getTen()
+                    nguoiDung.getChucVu() ? "Quản lý" : "Nhân viên"
             });
         }
     }
@@ -78,18 +78,9 @@ public class NhanVienUI extends javax.swing.JPanel {
         txtNgaySinh.setText("");
         txtSDT.setText("");
         txtEmail.setText("");
-        cbxCV.setSelectedIndex(0);
     }
 
-    public void loadCBX_CV(List<ChucVu> list) {
-        defaultComboBoxModel = (DefaultComboBoxModel) cbxCV.getModel();
-        defaultComboBoxModel.removeAllElements();
-
-        for (ChucVu cv : list) {
-            defaultComboBoxModel.addElement(cv);
-        }
-    }
-
+    
 
     public String genMa(){
         for (int i = 0; i < nguoiDungService.getList().size() + 1; i++) {
@@ -102,11 +93,16 @@ public class NhanVienUI extends javax.swing.JPanel {
     }
 
 
-
     ButtonGroup rdoGioiTinh = new ButtonGroup();
     public void groupGT(){
         rdoGioiTinh.add(rdoNam);
         rdoGioiTinh.add(rdoNu);
+    }
+    
+    ButtonGroup rdoCV = new ButtonGroup();
+    public void groupCV(){
+        rdoCV.add(rdoQL);
+        rdoCV.add(rdoNV);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -138,7 +134,9 @@ public class NhanVienUI extends javax.swing.JPanel {
         txtXacNhan = new textfield.TextField();
         btnDoiMK = new edu.poly.shopbangiay.raven.button.Button();
         txtMatKhau = new textfield.TextField();
-        cbxCV = new combobox.Combobox();
+        jLabel3 = new javax.swing.JLabel();
+        rdoQL = new radio_button.RadioButtonCustom();
+        rdoNV = new radio_button.RadioButtonCustom();
         jPanel2 = new javax.swing.JPanel();
         tableScrollButton1 = new table.TableScrollButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -287,8 +285,15 @@ public class NhanVienUI extends javax.swing.JPanel {
         txtMatKhau.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtMatKhau.setLabelText("Mật khẩu");
 
-        cbxCV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cbxCV.setLabeText("Chức vụ");
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel3.setText("Vai trò:");
+
+        rdoQL.setText("Quản lý");
+        rdoQL.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        rdoNV.setText("Nhân viên");
+        rdoNV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -302,14 +307,6 @@ public class NhanVienUI extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(rdoNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(rdoNu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtMa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -318,10 +315,26 @@ public class NhanVienUI extends javax.swing.JPanel {
                                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel2))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel3)))
                                 .addGap(18, 18, 18)
-                                .addComponent(cbxCV, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(rdoQL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rdoNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(rdoNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rdoNu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -362,7 +375,10 @@ public class NhanVienUI extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbxCV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel3)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(rdoNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(rdoQL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(43, 43, 43)
@@ -437,7 +453,10 @@ public class NhanVienUI extends javax.swing.JPanel {
         nguoiDung.setSdt(txtSDT.getText());
         nguoiDung.setEmail(txtEmail.getText());
         nguoiDung.setAnh(url);
-        ChucVu chucVu = chucVuService.getList().get(cbxCV.getSelectedIndex());
+        boolean chucVu = true;
+        if (rdoNV.isSelected()){
+            chucVu = false;
+        }
         nguoiDung.setChucVu(chucVu);
         if (nguoiDungService.them(nguoiDung)){
             loadData(nguoiDungService.getList());
@@ -463,7 +482,10 @@ public class NhanVienUI extends javax.swing.JPanel {
         nguoiDung.setEmail(txtEmail.getText());
         nguoiDung.setAnh(url);
 
-        ChucVu chucVu = chucVuService.getList().get(cbxCV.getSelectedIndex());
+        boolean chucVu = true;
+        if (rdoNV.isSelected()){
+            chucVu = false;
+        }
         nguoiDung.setChucVu(chucVu);
         if (nguoiDungService.sua(nguoiDung)){
             loadData(nguoiDungService.getList());
@@ -497,18 +519,22 @@ public class NhanVienUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         clear();
         int row = tblND.getSelectedRow();
-        NguoiDung nguoiDung = nguoiDungService.getList().get(row);
-        txtMa.setText(tblND.getValueAt(row, 1).toString());
-        txtTen.setText(tblND.getValueAt(row, 2).toString());
-        txtNgaySinh.setText(tblND.getValueAt(row, 3).toString());
-        if (tblND.getValueAt(row, 4).toString().equals("Nam")){
+        NguoiDung nguoiDung = nguoiDungService.timKiem(txtTim.getText()).get(row);
+        txtMa.setText(nguoiDung.getMa());
+        txtTen.setText(nguoiDung.getTen());
+        txtNgaySinh.setText(nguoiDung.getNgaySinh().toString());
+        if (nguoiDung.getGioiTinh().toString().equals("Nam")){
             rdoNam.setSelected(true);
         }else {
             rdoNu.setSelected(true);
         }
-        txtSDT.setText(tblND.getValueAt(row, 5).toString());
-        txtEmail.setText(tblND.getValueAt(row, 6).toString());
-        cbxCV.setSelectedItem(tblND.getValueAt(row, 7).toString());
+        txtSDT.setText(nguoiDung.getSdt());
+        txtEmail.setText(nguoiDung.getEmail());
+        if (nguoiDung.getChucVu()){
+            rdoQL.setSelected(true);
+        }else {
+            rdoNV.setSelected(true);
+        }
         lbAnh.setIcon(ResizeImage(new ImageIcon("image/ND/" + nguoiDung.getAnh()).toString()));
     }//GEN-LAST:event_tblNDMouseClicked
     public ImageIcon ResizeImage(String ImagePath) {
@@ -546,16 +572,18 @@ public class NhanVienUI extends javax.swing.JPanel {
     private edu.poly.shopbangiay.raven.button.Button btnSua;
     private edu.poly.shopbangiay.raven.button.Button btnThem;
     private edu.poly.shopbangiay.raven.button.Button btnXoa;
-    private combobox.Combobox cbxCV;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbAnh;
+    private radio_button.RadioButtonCustom rdoNV;
     private radio_button.RadioButtonCustom rdoNam;
     private radio_button.RadioButtonCustom rdoNu;
+    private radio_button.RadioButtonCustom rdoQL;
     private table.TableScrollButton tableScrollButton1;
     private javax.swing.JTable tblND;
     private textfield.TextField txtEmail;

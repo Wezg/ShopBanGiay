@@ -23,10 +23,6 @@ public class NguoiDung implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "IDCV")
-    private ChucVu chucVu;
-
     @Column(unique = true, nullable = false)
     private String ma;
     @Column(length = 50)
@@ -46,6 +42,8 @@ public class NguoiDung implements Serializable {
     private String matKhau;
     @Column
     private Boolean trangThai;
+    @Column
+    private Boolean chucVu;
 
     @OneToMany(mappedBy = "nguoiDung", fetch = FetchType.LAZY)
     private List<HoaDon> hoaDonList;

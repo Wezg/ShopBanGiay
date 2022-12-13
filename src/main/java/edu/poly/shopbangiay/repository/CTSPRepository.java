@@ -36,6 +36,11 @@ public class CTSPRepository {
         }
     }
 
+    public List<SanPham> listSP(){
+        Query query = session.createQuery("from SanPham ");
+        return query.getResultList();
+    }
+
     public List<Loai> listLoai(){
         Query query = session.createQuery("from Loai ");
         return query.getResultList();

@@ -27,7 +27,7 @@ public class HoaDonRepository {
     }
 
     public List<HoaDon> locTT(Integer tt) {
-        Query query = session.createQuery("from HoaDon where tinhTrang=: tt order by ngayTao desc");
+        Query query = session.createQuery("from HoaDon where tinhTrang =: tt order by ngayTao desc");
         query.setParameter("tt", tt);
         return query.getResultList();
     }
@@ -48,11 +48,24 @@ public class HoaDonRepository {
         return (Double) query.getSingleResult();
     }
 
+    public List<HoaDon> locDate(Date date, Date toDate){
+        Query query = session.createQuery("select hd from HoaDon hd where hd.ngayTao between :date and :toDate");
+        query.setParameter("date", date);
+        query.setParameter("toDate", toDate);
+        return query.getResultList();
+    }
+
 //    public static void main(String[] args) {
 //        HoaDonRepository hoaDonRepository = new HoaDonRepository();
-//        System.out.println(LocalDate.now());
-//        System.out.println(hoaDonRepository.doanhThu(Date.valueOf(LocalDate.now().getYear())));
+//        Date date = Date.valueOf("2022-12-04");
+//        Date toDate = Date.valueOf("2022-12-06");
+//        List<HoaDon> list = hoaDonRepository.locDate(date, toDate);
+//        for (HoaDon hd : list) {
+//            System.out.println(hd.toString());
+//        }
 //    }
+
+
 
     public Boolean them(HoaDon hoaDon) {
         try {

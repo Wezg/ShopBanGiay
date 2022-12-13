@@ -8,7 +8,7 @@ import java.util.List;
 public interface NguoiDungService {
     List<NguoiDung> getList();
     NguoiDung getNDByMa(String ma);
-    List<ChucVu> listCV();
+    NguoiDung getNDBySDT(String sdt);
     List<NguoiDung> timKiem(String ten);
     Boolean them(NguoiDung nguoiDung);
     Boolean sua(NguoiDung nguoiDung);

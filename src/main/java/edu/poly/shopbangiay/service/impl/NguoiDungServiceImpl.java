@@ -21,8 +21,8 @@ public class NguoiDungServiceImpl implements NguoiDungService {
     }
 
     @Override
-    public List<ChucVu> listCV() {
-        return nguoiDungRepository.listCV();
+    public NguoiDung getNDBySDT(String sdt) {
+        return nguoiDungRepository.getNDBySDT(sdt);
     }
 
     @Override

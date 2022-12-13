@@ -33,6 +33,11 @@ public class CTSPServiceImpl implements CTSPService {
     }
 
     @Override
+    public List<SanPham> listSP() {
+        return ctspRepository.listSP();
+    }
+
+    @Override
     public List<Loai> listLoai() {
         return ctspRepository.listLoai();
     }

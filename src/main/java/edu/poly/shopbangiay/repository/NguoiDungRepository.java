@@ -35,10 +35,16 @@ public class NguoiDungRepository {
         }
     }
 
-    public List<ChucVu> listCV(){
-        Query query = session.createQuery("from ChucVu ");
-        return query.getResultList();
+    public NguoiDung getNDBySDT(String sdt){
+        try{
+            Query query = session.createQuery("from NguoiDung where sdt =: sdt");
+            query.setParameter("sdt", sdt);
+            return (NguoiDung) query.getSingleResult();
+        }catch (Exception e){
+            return null;
+        }
     }
+
 
     public Boolean them(NguoiDung nguoiDung){
         try{

@@ -14,7 +14,7 @@ public class SanPhamRepository {
     Transaction transaction = null;
 
     public List<SanPham> getList() {
-        Query query = session.createQuery("from SanPham ");
+        Query query = session.createQuery("from SanPham");
         return query.getResultList();
     }
 

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package edu.poly.shopbangiay.view;
+package edu.poly.shopbangiay.view.kcr;
 
 import edu.poly.shopbangiay.model.ChucVu;
 import edu.poly.shopbangiay.service.ChucVuService;

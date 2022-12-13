@@ -21,6 +21,11 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
+    public List<HoaDon> locDate(Date date, Date toDate) {
+        return hoaDonRepository.locDate(date, toDate);
+    }
+
+    @Override
     public List<HoaDon> locTT(Integer tt) {
         return hoaDonRepository.locTT(tt);
     }

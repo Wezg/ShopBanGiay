@@ -26,12 +26,11 @@ public class ChucVu implements Serializable {
     @Column(length = 50)
     private String ten;
 
-    @OneToMany(mappedBy = "chucVu", fetch = FetchType.LAZY)
-    private List<NguoiDung> nguoiDungList;
-
     @Override
     public String toString() {
         return ten;
 
     }
+
+
 }

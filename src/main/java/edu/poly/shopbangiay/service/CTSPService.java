@@ -8,7 +8,7 @@ import java.util.List;
 public interface CTSPService {
     List<VMCTSP> getListVMCTSP();
     List<ChiTietSanPham> getList();
-
+    List<SanPham> listSP();
     List<Loai> listLoai();
     List<NSX> listNSX();
     List<Size> listSize();
