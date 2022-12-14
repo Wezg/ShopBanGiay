@@ -5,6 +5,7 @@
 package edu.poly.shopbangiay.service;
 
 import edu.poly.shopbangiay.model.HoaDon;
+import edu.poly.shopbangiay.response.HoaDonThongKeRespone;
 import edu.poly.shopbangiay.response.ViewThongKe;
 import edu.poly.shopbangiay.response.ViewThongKeNgay;
 import java.sql.Date;
@@ -16,6 +17,8 @@ import java.util.List;
  */
 public interface ThongKeService {
     public List<HoaDon> getAll();
+
+    List<HoaDonThongKeRespone>getHDByDate(Date from, Date to);
     
     public ViewThongKeNgay getTongHoaDonNgay(Date ngay);
     

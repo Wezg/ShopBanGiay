@@ -21,6 +21,36 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
+    public Double doanhThuHomNay(int ngay, int thang, int nam) {
+        return hoaDonRepository.doanhThuHomNay(ngay, thang, nam);
+    }
+
+    @Override
+    public Double doanhThuThangNay(int thang, int nam) {
+        return hoaDonRepository.doanhThuThangNay(thang, nam);
+    }
+
+    @Override
+    public Double doanhThuNamNay(int nam) {
+        return hoaDonRepository.doanhThuNamNay(nam);
+    }
+
+    @Override
+    public Long HDngay(int ngay, int thang, int nam) {
+        return hoaDonRepository.HDngay(ngay, thang, nam);
+    }
+
+    @Override
+    public Long HDthang(int thang, int nam) {
+        return hoaDonRepository.HDthang(thang, nam);
+    }
+
+    @Override
+    public Long HDnam(int nam) {
+        return hoaDonRepository.HDnam(nam);
+    }
+
+    @Override
     public List<HoaDon> locDate(Date date, Date toDate) {
         return hoaDonRepository.locDate(date, toDate);
     }

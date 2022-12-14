@@ -77,7 +77,6 @@ public class CTSPUI extends javax.swing.JPanel {
             btnXoa.setVisible(true);
             btnQL.setVisible(true);
             btnXuatFile.setVisible(true);
-            btnNhapFile.setVisible(true);
             btnThemSP.setVisible(true);
         } else {
             btnGenQR.setVisible(false);
@@ -86,7 +85,6 @@ public class CTSPUI extends javax.swing.JPanel {
             btnXoa.setVisible(false);
             btnQL.setVisible(false);
             btnXuatFile.setVisible(false);
-            btnNhapFile.setVisible(false);
             btnThemSP.setVisible(false);
         }
     }
@@ -238,7 +236,6 @@ public class CTSPUI extends javax.swing.JPanel {
         btnXoa = new edu.poly.shopbangiay.raven.button.Button();
         btnQL = new edu.poly.shopbangiay.raven.button.Button();
         txtTim = new textfield.TextField();
-        btnNhapFile = new edu.poly.shopbangiay.raven.button.Button();
         btnXuatFile = new edu.poly.shopbangiay.raven.button.Button();
         btnGenQR = new edu.poly.shopbangiay.raven.button.Button();
         btnThemSP = new edu.poly.shopbangiay.raven.button.Button();
@@ -373,15 +370,6 @@ public class CTSPUI extends javax.swing.JPanel {
             }
         });
 
-        btnNhapFile.setBackground(new java.awt.Color(153, 255, 153));
-        btnNhapFile.setText("Nhập file");
-        btnNhapFile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnNhapFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNhapFileActionPerformed(evt);
-            }
-        });
-
         btnXuatFile.setBackground(new java.awt.Color(153, 255, 153));
         btnXuatFile.setText("Xuất file");
         btnXuatFile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -484,9 +472,7 @@ public class CTSPUI extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnQL, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnXuatFile, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnNhapFile, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnXuatFile, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -525,7 +511,6 @@ public class CTSPUI extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNhapFile, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXuatFile, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -672,106 +657,6 @@ public class CTSPUI extends javax.swing.JPanel {
         lbAnh.setIcon(ResizeImage(new ImageIcon("image/SP/" + ctsp.getHinhAnh()).toString()));
 
     }//GEN-LAST:event_tblCTSPMouseClicked
-
-    private void btnNhapFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapFileActionPerformed
-        // TODO add your handling code here:
-//        List<SanPham> getListSP = sanPhamService.getList();
-//        List<ChiTietSanPham> getListCTSP = ctspService.getList();
-        List<ChiTietSanPham> list = new ArrayList<>();
-        List<SanPham> listSP = new ArrayList<>();
-        JFileChooser chonFile = new JFileChooser("/");
-        chonFile.showOpenDialog(null);
-        File file = chonFile.getSelectedFile();
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            Workbook workbook = new XSSFWorkbook(fis);
-            Sheet sheet = workbook.getSheetAt(0);
-            Iterator<Row> iterator = sheet.iterator();
-
-            while (iterator.hasNext()) {
-                Row currentRow = iterator.next();
-                if (currentRow.getRowNum() == 0) {
-                    continue;
-                }
-                String maSP = currentRow.getCell(0).getStringCellValue();
-                String tenSP = currentRow.getCell(1).getStringCellValue();
-                Integer idLoai = (int) currentRow.getCell(2).getNumericCellValue();
-                Integer idNSX = (int) currentRow.getCell(3).getNumericCellValue();
-                Integer idSize = (int) currentRow.getCell(4).getNumericCellValue();
-                Integer idMau = (int) currentRow.getCell(5).getNumericCellValue();
-                Integer idCL = (int) currentRow.getCell(6).getNumericCellValue();
-                Integer soLuong = (int) currentRow.getCell(7).getNumericCellValue();
-                Double giaNhap = currentRow.getCell(8).getNumericCellValue();
-                Double giaBan = currentRow.getCell(9).getNumericCellValue();
-                String moTa = currentRow.getCell(10).getStringCellValue();
-                String hinhAnh = currentRow.getCell(11).getStringCellValue();
-                Boolean trangThai = currentRow.getCell(12).getBooleanCellValue();
-
-                ChiTietSanPham ctsp = new ChiTietSanPham();
-                SanPham sanPham = new SanPham();
-                sanPham.setMa(maSP);
-                sanPham.setTen(tenSP);
-
-                ctsp.setSanPham(sanPham);
-
-                Loai loai = new Loai();
-                loai.setId(Integer.parseInt(String.valueOf(idLoai)));
-                ctsp.setLoai(loai);
-
-                Size size = new Size();
-                size.setId(Integer.parseInt(String.valueOf(idSize)));
-                ctsp.setSize(size);
-
-                ChatLieu chatLieu = new ChatLieu();
-                chatLieu.setId(Integer.parseInt(String.valueOf(idCL)));
-                ctsp.setChatLieu(chatLieu);
-
-                MauSac mauSac = new MauSac();
-                mauSac.setId(Integer.parseInt(String.valueOf(idMau)));
-                ctsp.setMauSac(mauSac);
-
-                NSX nsx = new NSX();
-                nsx.setId(Integer.parseInt(String.valueOf(idNSX)));
-                ctsp.setNsx(nsx);
-
-                ctsp.setSoLuong(Integer.parseInt(String.valueOf(soLuong)));
-                ctsp.setGiaNhap(Float.parseFloat(String.valueOf(giaNhap)));
-                ctsp.setGiaBan(Float.parseFloat(String.valueOf(giaBan)));
-                ctsp.setMoTa(moTa);
-                ctsp.setHinhAnh(hinhAnh);
-                ctsp.setTinhTrang(Boolean.parseBoolean(String.valueOf(trangThai)));
-
-                listSP.add(sanPham);
-                list.add(ctsp);
-            }
-
-//            for (SanPham sp : listSP) {
-//                for (SanPham s : getListSP) {
-//                    if (sp.getMa().equals(s.getMa())) {
-//                        sanPhamService.sua(sp);
-//                    } else {
-//                        sanPhamService.them(sp);
-//                    }
-//                }
-//            }
-//
-//            for (ChiTietSanPham ctsp : list) {
-//                for (ChiTietSanPham c : getListCTSP) {
-//                    if (ctsp.getId().equals(c.getId())) {
-//                        ctspService.sua(ctsp);
-//                    } else {
-//                        ctspService.them(ctsp);
-//                    }
-//                }
-//                System.out.println(ctsp.toString());
-//            }
-            loadData(ctspService.timKiem(txtTim.getText()));
-            JOptionPane.showMessageDialog(this, "Nhập file thành công");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }//GEN-LAST:event_btnNhapFileActionPerformed
 
     private void btnXuatFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFileActionPerformed
         // TODO add your handling code here:
@@ -1032,7 +917,6 @@ public class CTSPUI extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private edu.poly.shopbangiay.raven.button.Button btnGenQR;
-    private edu.poly.shopbangiay.raven.button.Button btnNhapFile;
     private edu.poly.shopbangiay.raven.button.Button btnQL;
     private edu.poly.shopbangiay.raven.button.Button btnSua;
     private edu.poly.shopbangiay.raven.button.Button btnThem;

@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CTHDRepository {
@@ -50,6 +51,19 @@ public class CTHDRepository {
         return query.getResultList();
     }
 
+    public List<ChiTietHoaDon> SelectByHoaDonCTID(int id) {
+        List<ChiTietHoaDon> listHoaDonChiTiet = new ArrayList<>();
+        try {
+            Query query = session.createQuery("FROM ChiTietHoaDon cthd where  cthd.hoaDon = :id");
+            query.setParameter("id", id);
+            if (query.getResultList() != null && !query.getResultList().isEmpty()) {
+                listHoaDonChiTiet = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listHoaDonChiTiet;
+    }
 
     public Boolean them(ChiTietHoaDon cthd) {
         try {

@@ -15,6 +15,17 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+import com.itextpdf.kernel.color.Color;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.border.SolidBorder;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
 import edu.poly.shopbangiay.helper.Auth;
 import edu.poly.shopbangiay.model.ChiTietHoaDon;
 import edu.poly.shopbangiay.model.ChiTietSanPham;
@@ -62,6 +73,8 @@ import javax.swing.text.MaskFormatter;
 
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import table.TableCustom;
+
+import static edu.poly.shopbangiay.view.HoaDonUI.getBillingandShippingCell;
 
 public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory {
 
@@ -262,8 +275,6 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
             System.out.println(khachTT());
             JOptionPane.showMessageDialog(this, "Chưa dủ tiền thanh toán, còn thiếu: " + tienThieu);
             return false;
-        } else {
-            JOptionPane.showMessageDialog(this, "Tiền thừa: " + formatter.format(Math.abs(thanhTien() - khachTT())) + "VNĐ");
         }
 
         return true;
@@ -386,7 +397,6 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jLabel14 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jPanel26 = new javax.swing.JPanel();
@@ -413,6 +423,7 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
         btnThemKH = new edu.poly.shopbangiay.raven.button.Button();
         cbxVC = new combo_suggestion.ComboBoxSuggestion();
         jLabel15 = new javax.swing.JLabel();
+        btnInHD = new edu.poly.shopbangiay.raven.button.Button();
         jPanel24 = new javax.swing.JPanel();
         btnThemHD = new edu.poly.shopbangiay.raven.button.Button();
         cbxTT = new combo_suggestion.ComboBoxSuggestion();
@@ -800,10 +811,6 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
         jPanel13.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 153), 2, true));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 0, 153));
-        jLabel2.setText("ABC.........");
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Welcome.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -811,25 +818,15 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addContainerGap(550, Short.MAX_VALUE)
+                .addContainerGap(556, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(219, 219, 219))
-            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel13Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
                 .addGap(0, 271, Short.MAX_VALUE)
                 .addComponent(jLabel1))
-            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel13Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jPanel3.add(jPanel13, "TrangChu");
@@ -1044,6 +1041,15 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel15.setText("Khuyến mại");
 
+        btnInHD.setBackground(new java.awt.Color(255, 255, 204));
+        btnInHD.setText("Thanh toán và in hóa đơn");
+        btnInHD.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnInHD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInHDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
         jPanel25Layout.setHorizontalGroup(
@@ -1052,10 +1058,10 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addComponent(jLabel15)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtTongTien, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel25Layout.createSequentialGroup()
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel25Layout.createSequentialGroup()
                         .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel25Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
@@ -1063,14 +1069,16 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
                             .addComponent(cbxKH, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnThemKH, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtGiamGia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbxVC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel25Layout.createSequentialGroup()
+                    .addComponent(txtGiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxVC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtThanhTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtKhachTT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtTienThua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel25Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(txtThanhTien, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtKhachTT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtTienThua, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnInHD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel25Layout.setVerticalGroup(
@@ -1100,6 +1108,8 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 .addComponent(txtTienThua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnInHD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -1285,7 +1295,7 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(thongKeUI1, javax.swing.GroupLayout.PREFERRED_SIZE, 1304, Short.MAX_VALUE)
+            .addComponent(thongKeUI1, javax.swing.GroupLayout.DEFAULT_SIZE, 1304, Short.MAX_VALUE)
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1359,11 +1369,14 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
 //        jPanel14.add(new Main());
 //        jPanel14.repaint();
 //        jPanel14.revalidate();
+
         cardLayout.show(jPanel3, "BanHang");
+
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
         // TODO add your handling code here:
+        webcam.close();
         jPanel15.setLayout(new BorderLayout());
         jPanel15.removeAll();
         jPanel15.add(new CTSPUI());
@@ -1374,6 +1387,7 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         // TODO add your handling code here:
+        webcam.close();
         jPanel16.setLayout(new BorderLayout());
         jPanel16.removeAll();
         jPanel16.add(new NhanVienUI());
@@ -1383,6 +1397,7 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
+        webcam.close();
         jPanel17.setLayout(new BorderLayout());
         jPanel17.removeAll();
         jPanel17.add(new HoaDonUI());
@@ -1394,6 +1409,7 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
     private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
         // TODO add your handling code here:
+        webcam.close();
         jPanel20.setLayout(new BorderLayout());
         jPanel20.removeAll();
         jPanel20.add(new KhachHangUI());
@@ -1412,6 +1428,7 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
     private void jPanel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel19MouseClicked
         // TODO add your handling code here:
+        webcam.close();
         jPanel18.setLayout(new BorderLayout());
         jPanel18.removeAll();
         jPanel18.add(new ThongKeUI());
@@ -1422,6 +1439,7 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
     private void jPanel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel21MouseClicked
         // TODO add your handling code here:
+        webcam.close();
         jPanel22.setLayout(new BorderLayout());
         jPanel22.removeAll();
         jPanel22.add(new VoucherUI());
@@ -1435,7 +1453,7 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
         HoaDon hoaDon = new HoaDon();
         hoaDon.setMa(genMaHD());
         NguoiDung nguoiDung = new NguoiDung();
-        nguoiDung.setId(2);
+        nguoiDung.setId(Auth.user.getId());
         hoaDon.setNguoiDung(nguoiDung);
         hoaDon.setNgayTao(new java.util.Date());
         hoaDon.setTinhTrang(0);
@@ -1498,7 +1516,7 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
                 hoaDonService.sua(hoaDon);
 
-                JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+                JOptionPane.showMessageDialog(this, "Thanh toán thành công\n" + "Tiền thừa: " + formatter.format(Math.abs(thanhTien() - khachTT())) + "VNĐ");
                 clearFrom();
                 loadHD(locHD());
                 loadGH(cthdService.getCTHDByMaHD(txtMaHD.getText()));
@@ -1635,6 +1653,200 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
     }//GEN-LAST:event_btnXoaAllActionPerformed
 
+    private void btnInHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHDActionPerformed
+        // TODO add your handling code here:
+        if (checkTT()) {
+            if (checkForm()) {
+                HoaDon hoaDon = hoaDonService.getHDByMa(txtMaHD.getText());
+                hoaDon.setTongTien(Float.parseFloat(tongTien().toString()));
+                hoaDon.setThanhTien(Float.parseFloat(thanhTien().toString()));
+                NguoiDung nguoiDung = nguoiDungService.getList().get(0);
+                hoaDon.setNguoiDung(nguoiDung);
+                KhachHang khachHang = khachHangService.getList().get(cbxKH.getSelectedIndex() + 1);
+                hoaDon.setKhachHang(khachHang);
+                hoaDon.setTinhTrang(1);
+                hoaDon.setNgayTT(new java.util.Date());
+                Voucher voucher = vcService.getList(Date.valueOf(LocalDate.now())).get(cbxVC.getSelectedIndex());
+                hoaDon.setVoucher(voucher);
+
+                inHD();
+                hoaDonService.sua(hoaDon);
+
+                JOptionPane.showMessageDialog(this, "Thanh toán thành công\n" + "Tiền thừa: " + formatter.format(Math.abs(thanhTien() - khachTT())) + "VNĐ");
+                clearFrom();
+                loadHD(locHD());
+                loadGH(cthdService.getCTHDByMaHD(""));
+                loadSP(ctspService.getList());
+            }
+        }
+    }//GEN-LAST:event_btnInHDActionPerformed
+
+
+    //in hoa don
+    static Cell getHeaderTextCell(String textValue) {
+
+        return new Cell().add(textValue).setBold().setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT);
+    }
+
+    static Cell getHeaderTextCellValue(String textValue) {
+
+        return new Cell().add(textValue).setBold().setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT);
+    }
+
+    static Cell getBillingandShippingCell(String textValue) {
+
+        return new Cell().add(textValue).setFontSize(30f).setBold().setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.CENTER);
+    }
+
+    static Cell getCell0fLeft(String textValue, Boolean isBold) {
+        Cell myCell = new Cell().add(textValue).setFontSize(15f).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT);
+
+        return isBold ? myCell.setBold() : myCell;
+    }
+    public void inHD() {
+        int chon = tblHD.getSelectedRow();
+        HoaDon hoaDon = hoaDonService.getHDByMa(txtMaHD.getText());
+        List<ChiTietHoaDon> listCTHD = cthdService.getCTHDByMaHD(hoaDon.getMa());
+//        List<HoaDon> lisHD = hoaDonService.timKiem(txtTim.getText());
+        if (chon != -1) {
+            if (hoaDon.getTinhTrang() == 1) {
+                try {
+                    String path = "HDpdf/" + hoaDon.getMa() + ".pdf";
+                    PdfWriter pdfWrite = new PdfWriter(path);
+                    PdfDocument pdfDocument = new PdfDocument(pdfWrite);
+                    pdfDocument.setDefaultPageSize(PageSize.A4);
+                    Document document = new Document(pdfDocument);
+                    float threecol = 190f;
+                    float twocol = 285f;
+                    float twocol150 = twocol + 150f;
+                    float twocolumnWidth[] = {twocol150, twocol};
+                    float threeColumnWidth[] = {threecol, threecol, threecol};
+                    float fullwidth[] = {threecol * 3};
+
+                    Paragraph onesp = new Paragraph("\n");
+
+                    Table table = new Table(fullwidth);
+                    table.addCell(new Cell().add("WegHiz Store").setBold().setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.CENTER).setFontSize(50f));
+                    Table nestedtabe = new Table(new float[]{twocol / 2, twocol / 2});
+                    table.addCell(new Cell().add(nestedtabe).setBorder(Border.NO_BORDER));
+                    document.add(table);
+
+                    Border gb = new SolidBorder(Color.GRAY, 1f / 2f);
+                    Table diveder = new Table(fullwidth);
+                    diveder.setBorder(gb);
+
+                    document.add(onesp);
+                    document.add(diveder);
+
+                    Table twoColTable = new Table(fullwidth);
+                    twoColTable.addCell(getBillingandShippingCell("HOA DON BAN HANG")).setBold().setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.CENTER).setFontSize(20f);
+                    document.add(twoColTable.setMarginBottom(12f));
+
+                    Table twoColTable2 = new Table(twocolumnWidth);
+                    twoColTable2.addCell(getCell0fLeft("Ma HD:", true));
+                    twoColTable2.addCell(getCell0fLeft("Khach hang:", true));
+                    twoColTable2.addCell(getCell0fLeft(hoaDon.getMa(), false));//ma hoa don
+                    twoColTable2.addCell(getCell0fLeft(hoaDon.getKhachHang().getTen(), false));// ten khach hang
+                    document.add(twoColTable2);
+
+                    Table twoCollTable3 = new Table(twocolumnWidth);
+                    twoCollTable3.addCell(getCell0fLeft("Ngay thanh toan", true));
+                    twoCollTable3.addCell(getCell0fLeft("Dien thoai", true));
+                    twoCollTable3.addCell(getCell0fLeft(simpleDateFormat.format(hoaDon.getNgayTT()), false));//ten nhan vien
+                    twoCollTable3.addCell(getCell0fLeft(hoaDon.getKhachHang().getSdt(), false));
+                    document.add(twoCollTable3);
+
+                    Table tabledivider2 = new Table(fullwidth);
+                    Border dgb = new SolidBorder(Color.GRAY, 0.5f);
+                    document.add(tabledivider2.setBorder(dgb));
+                    Paragraph productPara = new Paragraph("San pham");
+
+                    document.add(productPara.setBold().setFontSize(15f));
+                    Table threeColTable1 = new Table(threeColumnWidth);
+                    threeColTable1.setBackgroundColor(Color.BLACK, 0.7f);
+
+                    threeColTable1.addCell(new Cell().add("Ten").setBold().setFontColor(Color.WHITE).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT).setMarginLeft(10));
+                    threeColTable1.addCell(new Cell().add("So luong").setBold().setFontColor(Color.WHITE).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.CENTER));
+                    threeColTable1.addCell(new Cell().add("Don gia").setBold().setFontColor(Color.WHITE).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT).setMarginRight(10));
+                    document.add(threeColTable1);
+
+                    Table threeColTable2 = new Table(threeColumnWidth);
+
+                    float totalSum = 0;
+
+                    for (ChiTietHoaDon cthd : listCTHD) {
+
+                        float total = cthd.getSoLuong() * cthd.getDonGia();
+                        totalSum += total;
+                        threeColTable2.addCell(new Cell().add(cthd.getChiTietSanPham().getSanPham().getTen()).setBorder(Border.NO_BORDER)).setMarginLeft(10f);
+                        threeColTable2.addCell(new Cell().add(String.valueOf(cthd.getSoLuong())).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+                        threeColTable2.addCell(new Cell().add(formatter.format(cthd.getDonGia()) + " VNĐ").setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER)).setMarginRight(10f);
+                    }
+
+                    document.add(threeColTable2.setMarginBottom(20f));
+//                    float onetwo[] = {threecol + 125f, threecol * 2};
+//                    Table threeColTable4 = new Table(onetwo);
+//                    threeColTable4.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//                    threeColTable4.addCell(new Cell().add(tabledivider2).setBorder(Border.NO_BORDER));
+//                    document.add(threeColTable4);
+                    Table tabledivider3 = new Table(fullwidth);
+                    Border dgb2 = new SolidBorder(Color.GRAY, 0.5f);
+                    document.add(tabledivider3.setBorder(dgb2));
+
+                    Table threeColTable3 = new Table(threeColumnWidth);
+                    threeColTable3.addCell(new Cell().add("Tong tien hang").setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER));
+                    threeColTable3.addCell(new Cell().add("").setBorder(Border.NO_BORDER)).setMarginLeft(10f).setTextAlignment(TextAlignment.CENTER);
+                    threeColTable3.addCell(new Cell().add(formatter.format(totalSum) + " VNĐ").setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER)).setMarginRight(15f);
+
+                    Table threeColTable5 = new Table(threeColumnWidth);
+                    threeColTable3.addCell(new Cell().add("Giam gia").setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER));
+                    threeColTable3.addCell(new Cell().add("").setBorder(Border.NO_BORDER)).setMarginLeft(10f).setTextAlignment(TextAlignment.CENTER);
+                    threeColTable3.addCell(new Cell().add(formatter.format(totalSum /100 * hoaDon.getVoucher().getPhanTramGiam()) + " VNĐ").setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER)).setMarginRight(15f);
+
+                    Table threeColTable6 = new Table(threeColumnWidth);
+                    threeColTable3.addCell(new Cell().add("Khach phai tra").setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER));
+                    threeColTable3.addCell(new Cell().add("").setBorder(Border.NO_BORDER)).setMarginLeft(10f).setTextAlignment(TextAlignment.CENTER);
+                    threeColTable3.addCell(new Cell().add(formatter.format(totalSum - (totalSum /100 * hoaDon.getVoucher().getPhanTramGiam())) + " VNĐ").setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER)).setMarginRight(15f);
+
+                    Table threeColTable7 = new Table(threeColumnWidth);
+                    threeColTable3.addCell(new Cell().add("Tien khach dua").setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER));
+                    threeColTable3.addCell(new Cell().add("").setBorder(Border.NO_BORDER)).setMarginLeft(10f).setTextAlignment(TextAlignment.CENTER);
+                    threeColTable3.addCell(new Cell().add(formatter.format(totalSum - (totalSum /100 * hoaDon.getVoucher().getPhanTramGiam())) + " VNĐ").setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER)).setMarginRight(15f);
+
+
+                    Table threeColTable8 = new Table(threeColumnWidth);
+                    threeColTable3.addCell(new Cell().add("Tra lai").setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER));
+                    threeColTable3.addCell(new Cell().add("").setBorder(Border.NO_BORDER)).setMarginLeft(10f).setTextAlignment(TextAlignment.CENTER);
+                    threeColTable3.addCell(new Cell().add(formatter.format((totalSum - (totalSum /100 * hoaDon.getVoucher().getPhanTramGiam())) - (totalSum - (totalSum /100 * hoaDon.getVoucher().getPhanTramGiam())) ) + " VNĐ").setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER)).setMarginRight(15f);
+
+
+                    document.add(threeColTable3);
+                    document.add(threeColTable5);
+                    document.add(threeColTable6);
+                    document.add(threeColTable7);
+                    document.add(threeColTable8);
+                    document.add(tabledivider2);
+                    document.add(new Paragraph("\n"));
+                    Table tb = new Table(fullwidth);
+                    tb.addCell(new Cell().add("Cam on quy khach, hen gap lai!").setBold().setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.CENTER).setFontSize(10f));
+
+                    document.add(tb);
+
+                    document.close();
+
+                    JOptionPane.showMessageDialog(this, "Xuất hóa đơn thành công tại : \n" + path);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Hóa đơn chưa thanh toán");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn cần in");
+        }
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -1675,6 +1887,7 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel Cam;
+    private edu.poly.shopbangiay.raven.button.Button btnInHD;
     private edu.poly.shopbangiay.raven.button.Button btnThanhToan;
     private edu.poly.shopbangiay.raven.button.Button btnThemHD;
     private edu.poly.shopbangiay.raven.button.Button btnThemKH;
@@ -1688,7 +1901,6 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

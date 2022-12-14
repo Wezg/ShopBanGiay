@@ -98,15 +98,14 @@ public class ThongKeRepository {
     }
 
     public List<ViewThongKeNgay> getViewNgayTrongThang(int thang, int nam) {
-        Query q = session.createQuery("SELECT ngayTao, SUM(tongTien) AS doanhThu,"
-                + " COUNT(*) AS soHD FROM HoaDon GROUP BY ngayTao "
-                + "HAVING MONTH(ngayTao) = :thang AND YEAR(ngayTao) = :nam");
+        Query q = session.createQuery("SELECT day(ngayTao), SUM(tongTien) AS doanhThu, COUNT(*) AS soHD "
+                + "FROM HoaDon GROUP BY ngayTao having month(ngayTao) =: thang and year(ngayTao) =: nam");
         q.setParameter("thang", thang);
         q.setParameter("nam", nam);
         List<Object[]> listOb = q.getResultList();
         List<ViewThongKeNgay> list = new ArrayList<>();
         for (Object[] objects : listOb) {
-            Date ngayTao = (Date) objects[0];
+            int ngayTao = (int) objects[0];
             Float tongTien = (Float.parseFloat(objects[1].toString()));
             Long soHD = (Long) objects[2];
             ViewThongKeNgay vtkn = new ViewThongKeNgay(ngayTao, tongTien, soHD);
@@ -116,8 +115,9 @@ public class ThongKeRepository {
     }
 
     public List<ViewThongKeNgay> getViewThangTrongNam(int nam) {
-        Query q = session.createQuery("SELECT MONTH(ngayTao) AS Thang, SUM(tongTien) AS doanhThu,\n"
-                + "                COUNT(*) AS soHD FROM HoaDon GROUP BY MONTH(ngayTao) ");
+        Query q = session.createQuery("SELECT MONTH(ngayTao) AS Thang, SUM(tongTien) AS doanhThu, COUNT(*) AS soHD "
+                + "FROM HoaDon GROUP BY ngayTao having year(ngayTao) =: nam ");
+        q.setParameter("nam", nam);
         List<Object[]> listOb = q.getResultList();
         List<ViewThongKeNgay> list = new ArrayList<>();
         for (Object[] objects : listOb) {

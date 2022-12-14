@@ -134,8 +134,6 @@
                               <Component id="btnQL" min="-2" pref="124" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnXuatFile" min="-2" pref="129" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnNhapFile" min="-2" pref="129" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -185,7 +183,6 @@
                       <EmptySpace pref="75" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtTim" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnNhapFile" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
                           <Component id="btnXuatFile" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
                           <Component id="btnThem" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
                           <Component id="btnSua" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
@@ -454,20 +451,6 @@
               </Properties>
               <Events>
                 <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtTimCaretUpdate"/>
-              </Events>
-            </Component>
-            <Component class="edu.poly.shopbangiay.raven.button.Button" name="btnNhapFile">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="ff" red="99" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Nh&#x1ead;p file"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="1"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNhapFileActionPerformed"/>
               </Events>
             </Component>
             <Component class="edu.poly.shopbangiay.raven.button.Button" name="btnXuatFile">

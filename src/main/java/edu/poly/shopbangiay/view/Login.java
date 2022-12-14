@@ -103,7 +103,6 @@ public class Login extends javax.swing.JFrame {
         txtPass = new edu.poly.shopbangiay.raven.passwordfield.PasswordField();
         jPanel16 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
-        chkRemember = new javax.swing.JCheckBox();
         lbFPass = new javax.swing.JLabel();
         btnLogin = new edu.poly.shopbangiay.raven.button.Button();
 
@@ -209,8 +208,6 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        chkRemember.setText("Ghi nhớ đăng nhập");
-
         lbFPass.setText("Quên mật khẩu?");
         lbFPass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -223,9 +220,7 @@ public class Login extends javax.swing.JFrame {
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(chkRemember)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(249, Short.MAX_VALUE)
                 .addComponent(lbFPass)
                 .addGap(52, 52, 52))
         );
@@ -233,10 +228,8 @@ public class Login extends javax.swing.JFrame {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkRemember)
-                    .addComponent(lbFPass))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lbFPass)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         btnLogin.setText("Đăng nhập");
@@ -391,7 +384,6 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private edu.poly.shopbangiay.raven.button.Button btnLogin;
-    private javax.swing.JCheckBox chkRemember;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
