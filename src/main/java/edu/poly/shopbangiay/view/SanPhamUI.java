@@ -407,7 +407,7 @@ public class SanPhamUI extends javax.swing.JDialog {
 
             FileOutputStream fos;
             try {
-                fos = new FileOutputStream("sanPham.xlsx");
+                fos = new FileOutputStream("Excel/sanPham.xlsx");
                 workbook.write(fos);
                 JOptionPane.showMessageDialog(this, "Ghi file thành công");
             } catch (FileNotFoundException e) {

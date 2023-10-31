@@ -10,7 +10,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
-        <exec.mainClass>edu.polu.shopbangiay.ShopBanGiay</exec.mainClass>
+        <exec.mainClass>edu.poly.shopbangiay.ShopBanGiay</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -164,41 +164,41 @@
 
     </dependencies>
 
-    <!--    <build>-->
-    <!--        <plugins>-->
-    <!--            <plugin>-->
-    <!--                <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                <artifactId>maven-dependency-plugin</artifactId>-->
-    <!--                <version>3.3.0</version>-->
-    <!--                <executions>-->
-    <!--                    <execution>-->
-    <!--                        <id>copy-dependencies</id>-->
-    <!--                        <phase>prepare-package</phase>-->
-    <!--                        <goals>-->
-    <!--                            <goal>copy-dependencies</goal>-->
-    <!--                        </goals>-->
-    <!--                        <configuration>-->
-    <!--                            <outputDirectory>-->
-    <!--                                ${project.build.directory}/libs-->
-    <!--                            </outputDirectory>-->
-    <!--                        </configuration>-->
-    <!--                    </execution>-->
-    <!--                </executions>-->
-    <!--            </plugin>-->
-    <!--            <plugin>-->
-    <!--                <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                <artifactId>maven-jar-plugin</artifactId>-->
-    <!--                <version>3.3.0</version>-->
-    <!--                <configuration>-->
-    <!--                    <archive>-->
-    <!--                        <manifest>-->
-    <!--                            <addClasspath>true</addClasspath>-->
-    <!--                            <classpathPrefix>libs/</classpathPrefix>-->
-    <!--                            <mainClass>edu.poly.shopbangiay.main.Application</mainClass>-->
-    <!--                        </manifest>-->
-    <!--                    </archive>-->
-    <!--                </configuration>-->
-    <!--            </plugin>-->
-    <!--        </plugins>-->
-    <!--    </build>-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/libs
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>libs/</classpathPrefix>
+                            <mainClass>edu.poly.shopbangiay.main.Application</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

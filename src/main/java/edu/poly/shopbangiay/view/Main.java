@@ -1371,6 +1371,7 @@ public class Main extends javax.swing.JFrame implements Runnable, ThreadFactory 
 //        jPanel14.revalidate();
 
         cardLayout.show(jPanel3, "BanHang");
+        initWebcam(Cam);
 
     }//GEN-LAST:event_jPanel5MouseClicked
 

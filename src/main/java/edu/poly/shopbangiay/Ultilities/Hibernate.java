@@ -20,7 +20,7 @@ public class Hibernate {
         properties.put(Environment.DRIVER, "com.microsoft.sqlserver.jdbc.SQLServerDriver");
         properties.put(Environment.URL, "jdbc:sqlserver://localhost:1433;databaseName=shopBanGiay");
         properties.put(Environment.USER, "sa");
-        properties.put(Environment.PASS, "18123");
+        properties.put(Environment.PASS, "123");
         properties.put(Environment.SHOW_SQL, "true");
 //        properties.put(Environment.HBM2DDL_AUTO, "update");
         conf.setProperties(properties);

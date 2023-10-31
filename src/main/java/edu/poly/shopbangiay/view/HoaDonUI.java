@@ -70,6 +70,7 @@ public class HoaDonUI extends javax.swing.JPanel {
         loadCBX_TT();
 
 
+
     }
 
     public void loadCBX_TT() {
@@ -141,7 +142,7 @@ public class HoaDonUI extends javax.swing.JPanel {
         List<HoaDon> list;
         int index = cbxTT.getSelectedIndex();
         if (index == 0) {
-            list = hoaDonService.timKiem("");
+            list = hoaDonService.timKiem(txtTim.getText());
         } else if (index == 1) {
             list = hoaDonService.locTT(0);
         } else {

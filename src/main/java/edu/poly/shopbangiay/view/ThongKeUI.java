@@ -40,17 +40,17 @@ public class ThongKeUI extends javax.swing.JPanel {
         initComponents();
         TableCustom.apply(jScrollPane1, TableCustom.TableType.DEFAULT);
 
-        
-        int ngay = LocalDate.now().getDayOfMonth();
-        int thang = LocalDate.now().getMonthValue();
-        int nam = LocalDate.now().getYear();
-        txtDoanhThuNgay.setText(formatter.format(hoaDonService.doanhThuHomNay(ngay, thang, nam)) + " VNĐ");
-        txtDoanhThuThang.setText(formatter.format(hoaDonService.doanhThuThangNay(thang, nam)) + " VNĐ");
-        txtDoanhThuNam.setText(formatter.format(hoaDonService.doanhThuNamNay( nam)) + " VNĐ");
-
-        txtHDBanNgay.setText("Số hóa đơn: " + hoaDonService.HDngay(ngay, thang, nam));
-        txtHDBanThang.setText("Số hóa đơn: " + hoaDonService.HDthang(thang, nam));
-        txtHDBanNam.setText("Số hóa đơn: " + hoaDonService.HDnam(nam));
+//
+//        int ngay = LocalDate.now().getDayOfMonth();
+//        int thang = LocalDate.now().getMonthValue();
+//        int nam = LocalDate.now().getYear();
+//        txtDoanhThuNgay.setText(formatter.format(hoaDonService.doanhThuHomNay(ngay, thang, nam)) + " VNĐ");
+//        txtDoanhThuThang.setText(formatter.format(hoaDonService.doanhThuThangNay(thang, nam)) + " VNĐ");
+//        txtDoanhThuNam.setText(formatter.format(hoaDonService.doanhThuNamNay( nam)) + " VNĐ");
+//
+//        txtHDBanNgay.setText("Số hóa đơn: " + hoaDonService.HDngay(ngay, thang, nam));
+//        txtHDBanThang.setText("Số hóa đơn: " + hoaDonService.HDthang(thang, nam));
+//        txtHDBanNam.setText("Số hóa đơn: " + hoaDonService.HDnam(nam));
 
 //        filltabelhd();
     }
